@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fake Account Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+    <script>
+        // Configure Tailwind to support dark mode
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <nav class="relative bg-gray-800 dark:bg-gray-900">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div class="relative flex h-16 items-center justify-between">
+                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                    <!-- Mobile menu button-->
+                    <button type="button" command="--toggle" commandfor="mobile-menu"
+                        class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
+                        <span class="absolute -inset-0.5"></span>
+                        <span class="sr-only">Open main menu</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                            aria-hidden="true" class="size-6 in-aria-expanded:hidden">
+                            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                            aria-hidden="true" class="size-6 not-in-aria-expanded:hidden">
+                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                    <div class="text-xl font-bold text-white">
+                        <a href="loggedin.html">Fake Account Detector</a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:block">
+                        <div class="flex space-x-4">
+                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                            <a href="loggedin.html" aria-current="page"
+                                class="rounded-md bg-gray-900 dark:bg-gray-700 px-3 py-2 text-sm font-medium text-white">Home</a>
+                            <a href="about.html"
+                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">About</a>
+                            <a href="contact.html"
+                                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">How
+                                to use?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <button type="button"
+                        class="relative rounded-full p-1 text-gray-400 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
+                        <span class="absolute -inset-1.5"></span>
+                        <span class="sr-only">View notifications</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                            aria-hidden="true" class="size-6">
+                            <path
+                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+
+                    <!-- Profile dropdown -->
+                    <div class="relative ml-3">
+                        <button type="button"
+                            class="relative flex rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onclick="document.getElementById('user-menu').classList.toggle('hidden')">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="h-8 w-8 rounded-full"
+                                src="https://static.vecteezy.com/system/resources/previews/026/630/551/non_2x/profile-icon-symbol-design-illustration-vector.jpg"
+                                alt="User">
+                        </button>
+
+                        <!-- Dropdown menu with theme support -->
+                        <div id="user-menu"
+                            class="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-800 py-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-gray-700 hidden transition-colors duration-200">
+                            <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Your profile</a>
+                            <a href="#" onclick="toggleTheme()" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                Switch Appearance
+                                <span class="float-right text-xs opacity-70" id="theme-indicator">Light</span>
+                            </a>
+                            <a href="../loggedout/login.html" onclick="return confirmLogout()"
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <el-disclosure id="mobile-menu" hidden class="block sm:hidden">
+            <div class="space-y-1 px-2 pt-2 pb-3">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
+                <a href="#" aria-current="page"
+                    class="block rounded-md bg-gray-900 dark:bg-gray-700 px-3 py-2 text-base font-medium text-white">Dashboard</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Team</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Projects</a>
+                <a href="#"
+                    class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white">Calendar</a>
+            </div>
+        </el-disclosure>
+    </nav>
+    
+    <div class="container mx-auto mt-8 p-4">
+        <header>
+            <h2 class="text-2xl font-bold text-center my-4 text-gray-900 dark:text-white">❗ Beware of Fake Accounts </h2>
+        </header>
+
+        <main>
+            <form id="profile-form" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md transition-colors duration-300" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="screen_name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Twitter Handle:</label>
+                    <input type="text" id="screen_name" name="screen_name" placeholder="Enter Twitter handle" required
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500 transition-colors duration-200">
+                </div>
+                <div class="mb-4">
+                    <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Bio:</label>
+                    <textarea id="description" name="description" placeholder="Enter profile bio" rows="5"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500 transition-colors duration-200"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="followers_count" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Followers Count:</label>
+                    <input type="number" id="followers_count" name="followers_count"
+                        placeholder="Enter number of followers" min="0"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500 transition-colors duration-200">
+                </div>
+                <div class="mb-4">
+                    <label for="friends_count" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Following Count:</label>
+                    <input type="number" id="friends_count" name="friends_count" placeholder="Enter number of following"
+                        min="0"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500 transition-colors duration-200">
+                </div>
+                <div class="mb-4">
+                    <label for="statuses_count" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Tweet Count:</label>
+                    <input type="number" id="statuses_count" name="statuses_count" placeholder="Enter number of tweets"
+                        min="0"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline focus:border-indigo-500 transition-colors duration-200">
+                </div>
+                <button type="submit"
+                    class="w-full bg-black hover:bg-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors duration-200">Analyze Profile</button>
+            </form>
+
+            <section id="result-section" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md mt-4 transition-colors duration-300" style="display:none;">
+                <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Prediction Result</h2>
+                <p id="prediction-output" class="dark:text-gray-200">Processing...</p>
+                <canvas id="confidence-chart" width="400" height="200"></canvas>
+            </section>
+        </main>
+
+        <footer class="mt-8">
+            <p class="text-center text-gray-500 dark:text-gray-400 text-xs">© 2025 Fake Profile Detector</p>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+
+</html>
